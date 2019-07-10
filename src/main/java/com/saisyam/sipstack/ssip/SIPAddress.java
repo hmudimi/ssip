@@ -25,6 +25,7 @@ public class SIPAddress {
                 
                 for (Pattern pat:p){
                     Matcher m = pat.matcher(address);
+                    
                     if (m.find()){
                         if (m.groupCount() == 2) {
                             displayName = m.group(1).trim();
@@ -32,6 +33,9 @@ public class SIPAddress {
                         } else if (m.groupCount() == 3) {
                             displayName = m.group(2).trim();
                             uri = new SIPUri(m.group(3).trim());
+                        } else if (m.groupCount() == 1) {
+                            displayName = null;
+                            uri = new SIPUri(m.group(1).trim());
                         }
                         break;
                     }
@@ -55,7 +59,7 @@ public class SIPAddress {
     }
     
     public String toString() {
-        String addr = null;
+        String addr = "";
         if (displayName != null) {
             addr = displayName;
         }
